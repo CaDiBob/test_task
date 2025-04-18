@@ -51,12 +51,11 @@ async def get_product(product_id: int) -> dict:
 async def update_product(
     product_id: int,
     updated_product: ProductSchema,
-) -> dict:
+) -> ProductSchemaOut:
     product = await ProductDAO.update(
         product_id,
         **updated_product.model_dump(),
     )
-    product = await ProductDAO.find_one_or_none(id=product_id)
     if not product:
         return JSONResponse(
             content={'message': 'продукт не найден'},

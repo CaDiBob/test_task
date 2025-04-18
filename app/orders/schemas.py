@@ -20,3 +20,7 @@ class OrderOutSchema(BaseModel):
     status: str
     created_at: datetime
     order_items: list[OrderItemOutSchema]
+
+
+class OrderSchema(BaseModel):
+    order_id: int

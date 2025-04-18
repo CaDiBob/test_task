@@ -6,7 +6,7 @@ from app.exceptions import (
     OrderNotFoundException,
 )
 from app.orders.dao import OrderDAO
-from app.orders.schemas import OrderItemShema, OrderOutSchema
+from app.orders.schemas import OrderItemShema, OrderOutSchema, OrderSchema
 from app.orders.services import OrderAddService, OrderGetService
 from app.orders.dependencies import get_current_status
 from app.products.schemas import ErrorMessageSchema
@@ -24,7 +24,7 @@ router = APIRouter(
         status.HTTP_409_CONFLICT: {'model': ErrorMessageSchema},
     },
 )
-async def add_order(order_items: list[OrderItemShema]) -> dict:
+async def add_order(order_items: list[OrderItemShema]) -> OrderSchema:
     try:
         service = OrderAddService(order_items)
         order_id = await service.add_order()
