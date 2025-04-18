@@ -25,6 +25,15 @@
 
 ## Как запустить.
 
+- Клонировать репозиторий
+    ```bash
+    git clone git@github.com:CaDiBob/test_task.git
+    ```
+- Перейти в папку с проектом
+    ```bash
+    cd test_task
+    ```
+    
 - Установить [uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation)
     ```bash
     # On macOS and Linux.
