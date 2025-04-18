@@ -10,5 +10,13 @@ class ProductSchema(BaseModel):
     qty: int
 
 
+class ProductSchemaOut(BaseModel):
+    id: int
+    name: str
+    description: Optional[str] = None
+    price: int
+    qty: int
+
+
 class ErrorMessageSchema(BaseModel):
     message: str

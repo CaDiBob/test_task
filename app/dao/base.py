@@ -24,8 +24,9 @@ class BaseDAO:
     async def add(cls, **values) -> dict:
         async with async_session_maker() as session:
             stmt = insert(cls.model).values(**values)
-            await session.execute(stmt)
+            new = await session.execute(stmt)
             await session.commit()
+            return new.scalar()
 
     @classmethod
     async def delete(cls, model_id: int) -> None:
@@ -42,3 +43,11 @@ class BaseDAO:
                     .values(**values))
             await session.execute(stmt)
             await session.commit()
+
+    @classmethod
+    async def find_by_ids(cls, ids: list) -> dict:
+        async with async_session_maker() as session:
+            query = (select(cls.model.__table__.columns)
+                     .where(cls.model.id.in_(ids)))
+            result = await session.execute(query)
+            return result.mappings().all()

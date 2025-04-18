@@ -2,7 +2,11 @@ from fastapi import APIRouter, status
 from fastapi.responses import JSONResponse
 
 from app.products.dao import ProductDAO
-from app.products.schemas import ProductSchema, ErrorMessageSchema
+from app.products.schemas import (
+    ProductSchema,
+    ProductSchemaOut,
+    ErrorMessageSchema,
+)
 
 
 router = APIRouter(
@@ -12,13 +16,13 @@ router = APIRouter(
 
 
 @router.post('', status_code=status.HTTP_201_CREATED)
-async def add_product(new_product: ProductSchema) -> ProductSchema:
-    await ProductDAO.add(**new_product.model_dump())
-    return new_product
+async def add_product(new_product: ProductSchema) -> ProductSchemaOut:
+    product = await ProductDAO.add(**new_product.model_dump())
+    return product
 
 
 @router.get('')
-async def get_products() -> list[ProductSchema]:
+async def get_products() -> list[ProductSchemaOut]:
     return await ProductDAO.find_all()
 
 
@@ -32,7 +36,7 @@ async def get_product(product_id: int) -> dict:
     product = await ProductDAO.find_one_or_none(id=product_id)
     if not product:
         return JSONResponse(
-            content={'message': 'not found'},
+            content={'message': 'продукт не найден'},
             status_code=status.HTTP_404_NOT_FOUND,
         )
     return product
@@ -55,7 +59,7 @@ async def update_product(
     product = await ProductDAO.find_one_or_none(id=product_id)
     if not product:
         return JSONResponse(
-            content={'message': 'not found'},
+            content={'message': 'продукт не найден'},
             status_code=status.HTTP_404_NOT_FOUND,
         )
     return product
@@ -71,8 +75,8 @@ async def delete_product(product_id: int) -> dict:
     product = await ProductDAO.find_one_or_none(id=product_id)
     if not product:
         return JSONResponse(
-            content={'message': 'not found'},
+            content={'message': 'продукт не найден'},
             status_code=status.HTTP_404_NOT_FOUND,
         )
     product = await ProductDAO.delete(product_id)
-    return {'message': 'deleted'}
+    return {'message': f'удален id {product_id}'}
