@@ -8,6 +8,12 @@
     ```bash
     cd test_task
     ```
+- Переименовать файл `.env.example` в `.env` и заполнить переменные окружения\
+    DB_HOST= `хост базы данных`\
+    DB_PORT= `порт базы данных`\
+    DB_USER= `имя пользователябазы данных`\
+    DB_PASS= `пароль пользователя базы данных`\
+    DB_NAME= `имя базы данных`
 
 - Установить [uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation)
     ```bash
