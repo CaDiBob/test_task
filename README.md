@@ -30,6 +30,10 @@
     ```bash
     uv sync
     ```
+- Применить миграции к базе данных
+    ```bash
+    uv run alembic upgrade head
+    ```
 
 - Запустить проект локально
     ```bash
