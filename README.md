@@ -11,12 +11,20 @@
     cd test_task
     ```
 - Переименовать файл `.env.example` в `.env` и заполнить переменные окружения\
-    DB_HOST= `хост базы данных`\
-    DB_PORT= `порт базы данных`\
-    DB_USER= `имя пользователябазы данных`\
-    DB_PASS= `пароль пользователя базы данных`\
-    DB_NAME= `имя базы данных`
+    POSTGRES_HOST= `хост базы данных`\
+    POSTGRES_PORT= `порт базы данных`\
+    POSTGRES_USER= `имя пользователябазы данных`\
+    POSTGRES_PASSWORD= `пароль пользователя базы данных`\
+    POSTGRES_DB= `имя базы данных`
 
+#### Запустить используя docker.
+- Установить [docker](https://docs.docker.com/engine/install/) если не установлен.
+- Собрать и запустить контейнер
+    ```bash
+    docker compose build
+    docker compose up -d
+    ```
+#### Запустить локально.
 - Установить [uv](https://github.com/astral-sh/uv?tab=readme-ov-file#installation)
     ```bash
     # On macOS and Linux.
